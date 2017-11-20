@@ -15,17 +15,12 @@ class PoeItemCrawler(object):
 
     def item_properties(self):
         item_dict = {}
-        properties_list = []
-        explicitmods_list = []
         for item in self.requested_data["stashes"]:
             for itemdata in item["items"]:
                 try:
-                    properties_list.append(itemdata["properties"])
-                    explicitmods_list.append(itemdata["explicitMods"])
+                    item_dict[itemdata["explicitMods"]] = itemdata["properties"]
                 except KeyError:
                     continue
-        item_dict = zip(properties_list, explicitmods_list)
-        return item_dict
 
     def average_of_list(self, list_of_items):
         avg = sum(list_of_items) / float(len(list_of_items))
